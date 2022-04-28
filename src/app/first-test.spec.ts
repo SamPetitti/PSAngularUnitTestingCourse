@@ -18,6 +18,7 @@ describe('my first test', () => {
 
     //act
     sut = true;
+    
     //assert
     expect(sut).toBe(true);
 
