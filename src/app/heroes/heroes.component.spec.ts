@@ -1,6 +1,4 @@
 import { of } from "rxjs";
-import { Hero } from "../hero";
-import { HeroComponent } from "../hero/hero.component";
 import { HeroesComponent } from "./heroes.component";
 
 describe("HeroesComponent", () => {
@@ -37,13 +35,13 @@ describe("HeroesComponent", () => {
       expect(component.heroes.map((h) => h.id)).toContain(4);
     });
 
-    it("should call delete hero from delete hero service", () => {
+    it("should call delete hero with correct hero from delete hero service", () => {
        mockHeroesService.deleteHero.and.returnValue(of(true));
        component.heroes = HEROES;
 
        component.delete(HEROES[2]);
 
-       expect(mockHeroesService.deleteHero).toHaveBeenCalled();
+       expect(mockHeroesService.deleteHero).toHaveBeenCalledWith(HEROES[2]);
     })
   });
 });
