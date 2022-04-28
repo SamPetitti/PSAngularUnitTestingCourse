@@ -11,7 +11,7 @@ describe('Message Service', () => {
   it('should have no messages to start', () => {
     service = new MessageService();
 
-    expect(service.messages.length === 0);
+    expect(service.messages.length).toBe(0);
   });
 
   it('should add a message when add is called', () => {
@@ -19,7 +19,7 @@ describe('Message Service', () => {
 
     service.add('message 1');
 
-    expect(service.messages.length === 1);
+    expect(service.messages.length).toBe(1);
   });
 
   it('should clear a message when clear is called', () => {
@@ -28,7 +28,7 @@ describe('Message Service', () => {
 
     service.clear();
 
-    expect(service.messages.length === 0);
+    expect(service.messages.length).toBe(0);
   });
 
 
