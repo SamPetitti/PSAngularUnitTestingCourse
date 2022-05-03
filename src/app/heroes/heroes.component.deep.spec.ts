@@ -53,9 +53,31 @@ describe("HeroesComponent (DeepTests", () => {
 
     const heroComponents = fixture.debugElement.queryAll(
       By.directive(HeroComponent)
-    );(<HeroComponent>heroComponents[0].componentInstance).delete.emit(undefined);
+    );
+    //(<HeroComponent>heroComponents[1].componentInstance).delete.emit(undefined);
+    // last alternative to above line is:
+    heroComponents[0].triggerEventHandler('delete', null);
 
-    
     expect(fixture.componentInstance.delete).toHaveBeenCalled();
   });
+
+  it('should add a new hero to hero list when the add button is clicked', () => {
+    mockHeroService.getHeroes.and.returnValue(of(HEROES));
+    fixture.detectChanges();
+    const name = "Joker";
+
+    mockHeroService.addHero.and.returnValue(of({id: 5, name: name, strength: 10}));
+
+    const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
+    const addButton  = fixture.debugElement.queryAll(By.css('button'))[0];
+
+    inputElement.value = name;
+    addButton.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+
+    const heroText = fixture.debugElement.query(By.css('ul')).nativeElement.textContent;
+
+    expect(heroText).toContain(name);
+  })
 });
