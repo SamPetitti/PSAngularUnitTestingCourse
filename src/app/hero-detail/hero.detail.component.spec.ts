@@ -1,4 +1,11 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync,
+} from "@angular/core/testing";
 import { HeroDetailComponent } from "./hero-detail.component";
 import { Location } from "@angular/common";
 import { of } from "rxjs";
@@ -46,13 +53,27 @@ describe("HeroDetailComponent", () => {
     );
   });
 
-  it("should call updateHero when save is called", fakeAsync(() => {
+  // it("should call updateHero when save is called", fakeAsync(() => {
+  //   mockHeroService.updateHero.and.returnValue(of({}));
+  //   fixture.detectChanges();
+
+  //   fixture.componentInstance.save();
+  //   //tick(250); can also use flush() method ->
+  //   flush();
+
+  //   expect(mockHeroService.updateHero).toHaveBeenCalled();
+  // }));
+
+  //this is an alt to method above
+  it("should call updateHero when save is called", waitForAsync(() => {
     mockHeroService.updateHero.and.returnValue(of({}));
     fixture.detectChanges();
 
     fixture.componentInstance.save();
-    tick(250);
+    //tick(250); can also use flush() method ->
 
+    fixture.whenStable().then(() => {
     expect(mockHeroService.updateHero).toHaveBeenCalled();
+    });
   }));
 });
