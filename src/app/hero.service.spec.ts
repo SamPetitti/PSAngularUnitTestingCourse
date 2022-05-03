@@ -33,6 +33,8 @@ describe('HeroService', () => {
       req.flush({id: 4, name: 'SuperDude', strengh: 100});
       expect(req.request.method).toBe('GET');
       httpTestingController.verify();
-    })
+    });
+
+   
   })
 })
